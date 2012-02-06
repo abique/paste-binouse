@@ -1,0 +1,38 @@
+.page-div {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title-pre {
+    font-size: 8;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.viewer-pre {
+    display: block;
+    border: dashed 1px;
+    background-color: #faf9f9;
+    width: auto;
+    text-align: left;
+    word-wrap: break-word;
+}
+
+.new-post-link {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.footer {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.post-area {
+    width: 800px;
+    height: 600px;
+}

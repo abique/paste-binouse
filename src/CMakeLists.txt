@@ -1,5 +1,6 @@
 add_executable(paste-binoused
   main.cc
+  config.cc
 
   # web logic and common stuff
   db.cc

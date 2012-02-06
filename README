@@ -1,0 +1,30 @@
+                    __________                  __
+                    \______   \_____    _______/  |_  ____
+                     |     ___/\__  \  /  ___/\   __\/ __ \
+                     |    |     / __ \_\___ \  |  | \  ___/
+                     |____|    (____  /____  > |__|  \___  >
+                                    \/     \/            \/
+                __________.__
+                \______   \__| ____   ____  __ __  ______ ____
+                 |    |  _/  |/    \ /  _ \|  |  \/  ___// __ \
+                 |    |   \  |   |  (  <_> )  |  /\___ \\  ___/
+                 |______  /__|___|  /\____/|____//____  >\___  >
+                        \/        \/                  \/     \/
+
+Paste Binouse is a very simple and standalone paste bin.
+
+Installation
+~~~~~~~~~~~~
+
+I recommend you to create a new user paste-binouse:
+ # useradd --comment "paste-binouse web server"                 \
+--home-dir /srv/paste-binouse                                   \
+--create-home --shell /bin/false --user-group paste-binouse
+
+Then you have to initialize the database:
+ # su --shell=/bin/bash                                         \
+--command="/usr/bin/paste-binouse-init /srv/paste-binouse"      \
+paste-binouse
+
+And now you can start the server:
+ # paste-binoused >/var/log/paste-binouse.log

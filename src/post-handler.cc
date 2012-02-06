@@ -20,16 +20,20 @@ PostHandler::handle(mimosa::http::RequestReader & request,
   {
     mimosa::sqlite::Stmt stmt;
     int err = stmt.prepare(Db::handle(),
-                           "insert or fail into paste (content)"
-                           " values (?)");
+                           "insert or fail into paste (content, content_size)"
+                           " values (?, ?)");
     assert(err == SQLITE_OK); // must pass
 
-    err = stmt.bind(1, it->second);
+    err = stmt.bindBlob(1, it->second.data(), it->second.size());
     assert(err == SQLITE_OK); // must pass
+
+    err = stmt.bind(2, it->second.size());
+    assert(err == SQLITE_OK); // must pass
+
     err = stmt.step();
     if (err != SQLITE_DONE)
     {
-      mimosa::log::error("failed to post");
+      mimosa::log::error("failed to post: %s", sqlite3_errmsg(Db::handle()));
       return false;
     }
 

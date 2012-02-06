@@ -1,0 +1,5 @@
+#! /bin/bash
+
+ROOT="$1"
+
+sqlite3 "$ROOT"/db.sqlite </usr/share/paste-binouse/sql/model.sql

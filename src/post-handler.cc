@@ -3,7 +3,9 @@
 #include <mimosa/http/redirect.hh>
 #include <mimosa/tpl/dict.hh>
 
+#include "config.hh"
 #include "db.hh"
+#include "error-handler.hh"
 #include "post-handler.hh"
 #include "load-tpl.hh"
 #include "page-header.hh"
@@ -18,24 +20,23 @@ PostHandler::handle(mimosa::http::RequestReader & request,
   auto it = form.find("content");
   if (it != form.end())
   {
+    if (it->second.size() > Config::maxPasteSize())
+      return errorHandler(response, "post size exceed limit");
+
     mimosa::sqlite::Stmt stmt;
     int err = stmt.prepare(Db::handle(),
-                           "insert or fail into paste (content, content_size)"
-                           " values (?, ?)");
-    assert(err == SQLITE_OK); // must pass
+                           "insert or fail into paste (content)"
+                           " values (?)");
+    if (err != SQLITE_OK)
+      return errorHandler(response, "sqlite error");
 
     err = stmt.bindBlob(1, it->second.data(), it->second.size());
-    assert(err == SQLITE_OK); // must pass
-
-    err = stmt.bind(2, it->second.size());
-    assert(err == SQLITE_OK); // must pass
+    if (err != SQLITE_OK)
+      return errorHandler(response, "sqlite error");
 
     err = stmt.step();
     if (err != SQLITE_DONE)
-    {
-      mimosa::log::error("failed to post: %s", sqlite3_errmsg(Db::handle()));
-      return false;
-    }
+      return errorHandler(response, "sqlite error");
 
     int64_t row_id = sqlite3_last_insert_rowid(Db::handle());
     return redirect(response, mimosa::format::str("/view?id=%d", row_id));

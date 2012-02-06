@@ -11,6 +11,7 @@ add_executable(paste-binoused
   # handlers
   post-handler.cc
   view-handler.cc
+  error-handler.cc
 )
 
 target_link_libraries(paste-binoused
@@ -23,3 +24,6 @@ target_link_libraries(paste-binoused
   pthread
   rt
 )
+
+install(TARGETS paste-binoused
+  RUNTIME DESTINATION bin)

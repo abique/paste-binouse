@@ -17,7 +17,8 @@ public:
   static const std::string & tplDir() { return instance().tpl_dir_; }
   static const std::string & cssDir() { return instance().css_dir_; }
 
-  static uint16_t capacity() { return instance().capacity_; }
+  static uint64_t maxPasteSize() { return instance().max_paste_size_; }
+  static uint64_t capacity() { return instance().capacity_; }
   static uint16_t port() { return instance().port_; }
 
 private:
@@ -29,6 +30,7 @@ private:
 
   uint16_t port_;
   uint64_t capacity_;
+  uint64_t max_paste_size_;
 };
 
 #endif /* !CONFIG_HH */

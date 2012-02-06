@@ -3,11 +3,13 @@
 #include <mimosa/http/redirect.hh>
 #include <mimosa/tpl/dict.hh>
 
+#include "config.hh"
 #include "db.hh"
 #include "view-handler.hh"
 #include "load-tpl.hh"
 #include "page-header.hh"
 #include "page-footer.hh"
+#include "error-handler.hh"
 
 bool
 ViewHandler::handle(mimosa::http::RequestReader & request,
@@ -22,15 +24,18 @@ ViewHandler::handle(mimosa::http::RequestReader & request,
     mimosa::sqlite::Stmt stmt;
     int err = stmt.prepare(Db::handle(),
                            "select content from paste where paste_id = ?");
-    assert(err == SQLITE_OK); // must pass
+    if (err != SQLITE_OK)
+      return errorHandler(response, "sqlite error");
 
     err = stmt.bind(1, it->second);
-    assert(err == SQLITE_OK); // must pass
+    if (err != SQLITE_OK)
+      return errorHandler(response, "sqlite error");
+
     err = stmt.step();
     if (err != SQLITE_ROW)
     {
       mimosa::log::error("not found");
-      return false;
+      return errorHandler(response, "sqlite error");
     }
 
     value = (const char *)sqlite3_column_text(stmt, 0);

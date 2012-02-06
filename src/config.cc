@@ -3,13 +3,23 @@
 #include "config.hh"
 
 static uint16_t & PORT =
-  *mimosa::options::addOption<uint16_t>("", "port", "the port to use", 11013);
+  *mimosa::options::addOption<uint16_t>(
+    "", "port", "the port to use", 11013);
 
 static uint64_t & CAPACITY =
-  *mimosa::options::addOption<uint64_t>("", "capacity", "the capacity in bytes", 42 * 1042 * 1024);
+  *mimosa::options::addOption<uint64_t>(
+    "", "capacity",
+    "the total paste capacity in bytes",
+    42 * 1042 * 1024);
+
+static uint64_t & MAX_PASTE_SIZE =
+  *mimosa::options::addOption<uint64_t>(
+    "", "max-paste-size", "the maximum past size in bytes",
+    256 * 1024);
 
 static std::string & ROOT =
-  *mimosa::options::addOption<std::string>("", "root", "the root directory", "/srv/paste-binouse");
+  *mimosa::options::addOption<std::string>(
+    "", "root", "the root directory", "/srv/paste-binouse");
 
 Config::Config()
   : root_dir_(ROOT),
@@ -18,6 +28,7 @@ Config::Config()
     data_dir_(ROOT + "/www/data/"),
     db_(ROOT + "/db.sqlite"),
     port_(PORT),
-    capacity_(CAPACITY)
+    capacity_(CAPACITY),
+    max_paste_size_(MAX_PASTE_SIZE)
 {
 }

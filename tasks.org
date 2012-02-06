@@ -1,1 +1,12 @@
-
+* cleanup old pastes
+* post compression with gzip and/or xz-utils
+* DONE check post size
+  CLOSED: [2012-02-07 Tue 00:46]
+* DONE remove temporary assertions
+  CLOSED: [2012-02-07 Tue 00:46]
+* DONE prepare the make install
+  CLOSED: [2012-02-07 Tue 00:46]
+* prepare the PKGBUILD
+* funki konami code (color/blink paste binouse)
+* be carefull of DDOS
+* add the ip of the poster

@@ -8,7 +8,11 @@ static uint16_t & PORT =
 
 static uint16_t & MS_SLEEP =
   *mimosa::options::addOption<uint16_t>(
-    "", "ms-sleep", "the paste bottleneck", 100);
+    "", "ms-sleep", "the paste bottleneck", 10);
+
+static uint16_t & MAX_CLIENTS =
+  *mimosa::options::addOption<uint16_t>(
+    "", "max-clients", "the maximum number of client at the same time", 100);
 
 static uint64_t & CAPACITY =
   *mimosa::options::addOption<uint64_t>(
@@ -34,6 +38,7 @@ Config::Config()
     port_(PORT),
     capacity_(CAPACITY),
     max_paste_size_(MAX_PASTE_SIZE),
-    ms_sleep_(MS_SLEEP)
+    ms_sleep_(MS_SLEEP),
+    max_clients_(MAX_CLIENTS)
 {
 }

@@ -8,5 +8,6 @@
   CLOSED: [2012-02-07 Tue 00:46]
 * prepare the PKGBUILD
 * funki konami code (color/blink paste binouse)
-* be carefull of DDOS
+* DONE be carefull of DDOS
+  CLOSED: [2012-02-07 Tue 23:06]
 * add the ip of the poster

@@ -35,7 +35,7 @@ ViewHandler::handle(mimosa::http::RequestReader & request,
     if (err != SQLITE_ROW)
     {
       mimosa::log::error("not found");
-      return errorHandler(response, "sqlite error");
+      return errorHandler(response, "Paste not found, take an other binouse!");
     }
 
     value = (const char *)sqlite3_column_text(stmt, 0);

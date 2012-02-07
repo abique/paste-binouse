@@ -1,6 +1,7 @@
 add_executable(paste-binoused
   main.cc
   config.cc
+  bottleneck.cc
 
   # web logic and common stuff
   db.cc

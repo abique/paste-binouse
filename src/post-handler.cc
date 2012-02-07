@@ -3,6 +3,7 @@
 #include <mimosa/http/redirect.hh>
 #include <mimosa/tpl/dict.hh>
 
+#include "bottleneck.hh"
 #include "config.hh"
 #include "db.hh"
 #include "error-handler.hh"

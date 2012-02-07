@@ -20,6 +20,7 @@ public:
   static uint64_t maxPasteSize() { return instance().max_paste_size_; }
   static uint64_t capacity() { return instance().capacity_; }
   static uint16_t port() { return instance().port_; }
+  static uint16_t msSleep() { return instance().ms_sleep_; }
 
 private:
   std::string root_dir_;
@@ -31,6 +32,7 @@ private:
   uint16_t port_;
   uint64_t capacity_;
   uint64_t max_paste_size_;
+  uint16_t ms_sleep_;
 };
 
 #endif /* !CONFIG_HH */

@@ -7,6 +7,7 @@
 #include <mimosa/http/fs-handler.hh>
 #include <mimosa/http/log-handler.hh>
 
+#include "bottleneck.hh"
 #include "config.hh"
 #include "db.hh"
 
@@ -19,6 +20,7 @@ int main(int argc, char ** argv)
   sqlite3_initialize();
   mimosa::init(argc, argv);
   Db::instance();
+  Bottleneck::instance();
 
   auto dispatch = new mimosa::http::DispatchHandler;
   dispatch->registerHandler("/", new PostHandler);
@@ -46,6 +48,7 @@ int main(int argc, char ** argv)
   while (true)
     server->serveOne();
 
+  Bottleneck::release();
   Db::release();
   mimosa::deinit();
   sqlite3_shutdown();

@@ -6,6 +6,10 @@ static uint16_t & PORT =
   *mimosa::options::addOption<uint16_t>(
     "", "port", "the port to use", 11013);
 
+static uint16_t & MS_SLEEP =
+  *mimosa::options::addOption<uint16_t>(
+    "", "ms-sleep", "the paste bottleneck", 100);
+
 static uint64_t & CAPACITY =
   *mimosa::options::addOption<uint64_t>(
     "", "capacity",
@@ -29,6 +33,7 @@ Config::Config()
     db_(ROOT + "/db.sqlite"),
     port_(PORT),
     capacity_(CAPACITY),
-    max_paste_size_(MAX_PASTE_SIZE)
+    max_paste_size_(MAX_PASTE_SIZE),
+    ms_sleep_(MS_SLEEP)
 {
 }

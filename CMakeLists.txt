@@ -23,3 +23,6 @@ install(FILES scripts/paste-binouse-init
 
 install(DIRECTORY www
   DESTINATION share/paste-binouse)
+
+install(DIRECTORY sql
+  DESTINATION share/paste-binouse)

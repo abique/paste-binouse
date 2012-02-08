@@ -16,7 +16,13 @@ Paste Binouse is a very simple and standalone paste bin.
 Installation
 ~~~~~~~~~~~~
 
-I recommend you to create a new user paste-binouse:
+ # mkdir build
+ # cd build
+ # cmake -DCMAKE_INSTALL_PREFI=/usr -DCMAKE_BUILD_TYPE=release
+ # make
+ # make install
+
+Then I recommend you to create a new user paste-binouse:
  # useradd --comment "paste-binouse web server"                 \
 --home-dir /srv/paste-binouse                                   \
 --create-home --shell /bin/false --user-group paste-binouse

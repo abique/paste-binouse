@@ -1,7 +1,11 @@
 #ifndef PURGE_HH
 # define PURGE_HH
 
-# include <mimosa/container/purge.hh>
+# include <deque>
+
+# include <mimosa/sync/channel.hh>
+# include <mimosa/runtime/thread.hh>
+# include <mimosa/container/singleton.hh>
 
 /**
  * init:
@@ -16,17 +20,31 @@
 class Purge : public mimosa::container::Singleton<Purge>
 {
 public:
+  Purge();
+  ~Purge();
+
   void newPaste(uint32_t size);
 
 private:
+  void computeTotalSize();
+  void loadOldestPastes();
+  void cleanup();
+  void run();
+
   struct Paste
   {
-    uint32_t id_;
-    uint32_t size_;
+    inline Paste(int64_t id, int64_t size) : id_(id), size_(size) {}
+
+    uint64_t id_;
+    uint64_t size_;
   };
 
-  uint64_t          total_size_;
-  std::deque<Paste> odest_pastes_;
+  typedef mimosa::sync::Channel<uint32_t> channel_type;
+
+  mimosa::runtime::Thread thread_;
+  channel_type::Ptr       channel_;
+  uint64_t                total_size_;
+  std::deque<Paste>       oldest_pastes_;
 };
 
 #endif /* !PURGE_HH */

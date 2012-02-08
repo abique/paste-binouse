@@ -7,10 +7,11 @@
 #include "config.hh"
 #include "db.hh"
 #include "error-handler.hh"
-#include "post-handler.hh"
 #include "load-tpl.hh"
-#include "page-header.hh"
 #include "page-footer.hh"
+#include "page-header.hh"
+#include "post-handler.hh"
+#include "purge.hh"
 
 bool
 PostHandler::handle(mimosa::http::RequestReader & request,
@@ -40,6 +41,7 @@ PostHandler::handle(mimosa::http::RequestReader & request,
       return errorHandler(response, "sqlite error");
 
     int64_t row_id = sqlite3_last_insert_rowid(Db::handle());
+    Purge::instance().newPaste(it->second.size());
     return redirect(response, mimosa::format::str("/view?id=%d", row_id));
   }
 

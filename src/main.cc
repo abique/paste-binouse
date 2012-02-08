@@ -11,6 +11,7 @@
 #include "bottleneck.hh"
 #include "config.hh"
 #include "db.hh"
+#include "purge.hh"
 
 // handlers
 #include "post-handler.hh"
@@ -22,6 +23,7 @@ int main(int argc, char ** argv)
   mimosa::init(argc, argv);
   Db::instance();
   Bottleneck::instance();
+  Purge::instance();
 
   auto dispatch = new mimosa::http::DispatchHandler;
   dispatch->registerHandler("/", new PostHandler);
@@ -55,6 +57,7 @@ int main(int argc, char ** argv)
     thread_pool.startThread();
 
   thread_pool.join();
+  Purge::release();
   Bottleneck::release();
   Db::release();
   mimosa::deinit();

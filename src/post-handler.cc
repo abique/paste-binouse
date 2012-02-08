@@ -1,6 +1,8 @@
-#include <mimosa/sqlite/sqlite.hh>
-#include <mimosa/log/log.hh>
 #include <mimosa/http/redirect.hh>
+#include <mimosa/http/server-channel.hh>
+#include <mimosa/log/log.hh>
+#include <mimosa/net/print.hh>
+#include <mimosa/sqlite/sqlite.hh>
 #include <mimosa/tpl/dict.hh>
 
 #include "bottleneck.hh"
@@ -27,12 +29,17 @@ PostHandler::handle(mimosa::http::RequestReader & request,
 
     mimosa::sqlite::Stmt stmt;
     int err = stmt.prepare(Db::handle(),
-                           "insert or fail into paste (content)"
-                           " values (?)");
+                           "insert or fail into paste (content, ip)"
+                           " values (?, ?)");
     if (err != SQLITE_OK)
       return errorHandler(response, "sqlite error");
 
     err = stmt.bindBlob(1, it->second.data(), it->second.size());
+    if (err != SQLITE_OK)
+      return errorHandler(response, "sqlite error");
+
+    err = stmt.bind(2, mimosa::net::print(request.channel().remoteAddr(),
+                                          request.channel().remoteAddrLen()));
     if (err != SQLITE_OK)
       return errorHandler(response, "sqlite error");
 

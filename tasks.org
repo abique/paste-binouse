@@ -1,4 +1,5 @@
-* cleanup old pastes
+* DONE cleanup old pastes
+  CLOSED: [2012-02-08 Wed 01:13]
 * post compression with gzip and/or xz-utils
 * DONE check post size
   CLOSED: [2012-02-07 Tue 00:46]

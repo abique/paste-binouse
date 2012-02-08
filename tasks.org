@@ -11,4 +11,5 @@
 * funki konami code (color/blink paste binouse)
 * DONE be carefull of DDOS
   CLOSED: [2012-02-07 Tue 23:06]
-* add the ip of the poster
+* DONE add the ip of the poster
+  CLOSED: [2012-02-08 Wed 09:43]

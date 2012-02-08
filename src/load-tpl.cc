@@ -10,8 +10,7 @@ mimosa::tpl::Template::ConstPtr loadTpl(const std::string & path)
 
   std::string real_path(Config::tplDir() + path);
 
-  // auto tpl = cache.get(real_path)->get();
-  auto tpl = mimosa::tpl::Template::parseFile(real_path);
+  auto tpl = cache.get(real_path)->get();
   if (tpl)
     return tpl;
 

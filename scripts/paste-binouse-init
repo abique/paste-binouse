@@ -2,4 +2,6 @@
 
 ROOT="$1"
 
-sqlite3 "$ROOT"/db.sqlite </usr/share/paste-binouse/sql/model.sql
+cd "$ROOT"
+sqlite3 db.sqlite </usr/share/paste-binouse/sql/model.sql
+ln -s /usr/share/paste-binouse/www

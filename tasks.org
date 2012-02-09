@@ -7,7 +7,8 @@
   CLOSED: [2012-02-07 Tue 00:46]
 * DONE prepare the make install
   CLOSED: [2012-02-07 Tue 00:46]
-* prepare the PKGBUILD
+* DONE prepare the PKGBUILD
+  CLOSED: [2012-02-09 Thu 01:04]
 * funki konami code (color/blink paste binouse)
 * DONE be carefull of DDOS
   CLOSED: [2012-02-07 Tue 23:06]

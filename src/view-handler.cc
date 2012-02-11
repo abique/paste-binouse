@@ -2,6 +2,8 @@
 #include <mimosa/log/log.hh>
 #include <mimosa/http/redirect.hh>
 #include <mimosa/tpl/dict.hh>
+#include <mimosa/stream/string-stream.hh>
+#include <mimosa/stream/lzma-decoder.hh>
 
 #include "config.hh"
 #include "db.hh"
@@ -10,20 +12,21 @@
 #include "page-header.hh"
 #include "page-footer.hh"
 #include "error-handler.hh"
+#include "encoding.hh"
 
 bool
 ViewHandler::handle(mimosa::http::RequestReader & request,
                     mimosa::http::ResponseWriter & response) const
 {
+  std::string content;
   const auto & query = request.query();
-  std::string value;
 
   auto it = query.find("id");
   if (it != query.end())
   {
     mimosa::sqlite::Stmt stmt;
     int err = stmt.prepare(Db::handle(),
-                           "select content from paste where paste_id = ?");
+                           "select content, encoding from paste where paste_id = ?");
     if (err != SQLITE_OK)
       return errorHandler(response, "sqlite error");
 
@@ -38,7 +41,18 @@ ViewHandler::handle(mimosa::http::RequestReader & request,
       return errorHandler(response, "Paste not found, take an other binouse!");
     }
 
-    value = (const char *)sqlite3_column_text(stmt, 0);
+    int encoding = sqlite3_column_int(stmt, 1);
+    content.assign((const char *)sqlite3_column_blob(stmt, 0),
+                   sqlite3_column_bytes(stmt, 0));
+
+    if (encoding == kLzma)
+    {
+      mimosa::stream::StringStream::Ptr str = new mimosa::stream::StringStream();
+      mimosa::stream::LzmaDecoder::Ptr lzma = new mimosa::stream::LzmaDecoder(str);
+      lzma->loopWrite(content.data(), content.size());
+      lzma->flush();
+      content = str->str();
+    }
   }
 
   auto tpl = loadTpl("page.html");
@@ -51,7 +65,7 @@ ViewHandler::handle(mimosa::http::RequestReader & request,
   if (!tpl_body)
     return false;
   dict.append("body", tpl_body);
-  dict.append("content", value);
+  dict.append("content", content);
 
   setPageHeader(dict);
   setPageFooter(dict);

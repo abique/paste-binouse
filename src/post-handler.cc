@@ -4,16 +4,39 @@
 #include <mimosa/net/print.hh>
 #include <mimosa/sqlite/sqlite.hh>
 #include <mimosa/tpl/dict.hh>
+#include <mimosa/stream/lzma-encoder.hh>
+#include <mimosa/stream/string-stream.hh>
 
 #include "bottleneck.hh"
 #include "config.hh"
 #include "db.hh"
+#include "encoding.hh"
 #include "error-handler.hh"
 #include "load-tpl.hh"
 #include "page-footer.hh"
 #include "page-header.hh"
 #include "post-handler.hh"
 #include "purge.hh"
+
+static void
+encode(const std::string & input,
+       std::string * output,
+       Encoding * encoding)
+{
+  if (input.size() < 512)
+  {
+    *output = input;
+    *encoding = kIdentity;
+    return;
+  }
+
+  *encoding = kLzma;
+  mimosa::stream::StringStream::Ptr str = new mimosa::stream::StringStream;
+  mimosa::stream::LzmaEncoder::Ptr lzma = new mimosa::stream::LzmaEncoder(str);
+  lzma->loopWrite(input.data(), input.size());
+  lzma->flush();
+  *output = str->str();
+}
 
 bool
 PostHandler::handle(mimosa::http::RequestReader & request,
@@ -27,19 +50,28 @@ PostHandler::handle(mimosa::http::RequestReader & request,
     if (it->second.size() > Config::maxPasteSize())
       return errorHandler(response, "post size exceed limit");
 
+    Encoding encoding;
+    std::string content;
+
+    encode(it->second, &content, &encoding);
+
     mimosa::sqlite::Stmt stmt;
     int err = stmt.prepare(Db::handle(),
-                           "insert or fail into paste (content, ip)"
-                           " values (?, ?)");
+                           "insert or fail into paste (content, ip, encoding)"
+                           " values (?, ?, ?)");
     if (err != SQLITE_OK)
       return errorHandler(response, "sqlite error");
 
-    err = stmt.bindBlob(1, it->second.data(), it->second.size());
+    err = stmt.bindBlob(1, content.data(), content.size());
     if (err != SQLITE_OK)
       return errorHandler(response, "sqlite error");
 
     err = stmt.bind(2, mimosa::net::print(request.channel().remoteAddr(),
                                           request.channel().remoteAddrLen()));
+    if (err != SQLITE_OK)
+      return errorHandler(response, "sqlite error");
+
+    err = stmt.bind(3, encoding);
     if (err != SQLITE_OK)
       return errorHandler(response, "sqlite error");
 

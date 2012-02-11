@@ -23,6 +23,7 @@ target_link_libraries(paste-binoused
   mimosa
   gnutls
   sqlite3
+  lzma
   pthread
   rt
 )

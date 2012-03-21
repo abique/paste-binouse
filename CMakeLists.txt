@@ -10,7 +10,7 @@ add_definitions(
   -std=c++0x
   -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -DGOOGLE_PROTOBUF_NO_RTTI
   -Wall -Wextra -Werror=return-type
-  -fsplit-stack -fno-exceptions -fno-rtti
+  -fsplit-stack
   ${GNUTLS_DEFINITIONS})
 
 set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -std=c99")

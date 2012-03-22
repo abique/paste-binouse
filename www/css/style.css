@@ -1,5 +1,4 @@
 .page-div {
-    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -12,12 +11,8 @@
 }
 
 .viewer-pre {
-    display: block;
-    border: dashed 1px;
     background-color: #faf9f9;
-    width: auto;
     text-align: left;
-    word-wrap: break-word;
 }
 
 .new-post-link {

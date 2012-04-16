@@ -29,7 +29,6 @@ void
 Bottleneck::run()
 {
   future_type::Ptr future;
-  bool             succeed;
 
   while (true)
   {

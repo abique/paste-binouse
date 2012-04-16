@@ -56,28 +56,14 @@ PostHandler::handle(mimosa::http::RequestReader & request,
     encode(it->second, &content, &encoding);
 
     mimosa::sqlite::Stmt stmt;
-    int err = stmt.prepare(Db::handle(),
-                           "insert or fail into paste (content, ip, encoding)"
-                           " values (?, ?, ?)");
-    if (err != SQLITE_OK)
-      return errorHandler(response, "sqlite error");
-
-    err = stmt.bindBlob(1, content.data(), content.size());
-    if (err != SQLITE_OK)
-      return errorHandler(response, "sqlite error");
-
-    err = stmt.bind(2, mimosa::net::print(request.channel().remoteAddr(),
-                                          request.channel().remoteAddrLen()));
-    if (err != SQLITE_OK)
-      return errorHandler(response, "sqlite error");
-
-    err = stmt.bind(3, encoding);
-    if (err != SQLITE_OK)
-      return errorHandler(response, "sqlite error");
-
-    err = stmt.step();
-    if (err != SQLITE_DONE)
-      return errorHandler(response, "sqlite error");
+    stmt.prepare(Db::handle(),
+                 "insert or fail into paste (content, ip, encoding)"
+                 " values (?, ?, ?)")
+      .bind((void*)content.data(), (int)content.size(),
+            mimosa::net::print(request.channel().remoteAddr(),
+                               request.channel().remoteAddrLen()),
+            encoding)
+      .exec();
 
     int64_t row_id = sqlite3_last_insert_rowid(Db::handle());
     Purge::instance().newPaste(it->second.size());

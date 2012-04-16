@@ -25,29 +25,22 @@ void
 Purge::computeTotalSize()
 {
   mimosa::sqlite::Stmt stmt;
-  int err = stmt.prepare(Db::handle(),
-                         "select sum(length(content)) from paste");
-  assert(err == SQLITE_OK);
-
-  err = stmt.step();
-  assert(err == SQLITE_ROW);
-
-  total_size_ = sqlite3_column_int64(stmt, 0);
+  stmt.prepare(Db::handle(), "select sum(length(content)) from paste")
+    .fetch(&total_size_);
 }
 
 void
 Purge::loadOldestPastes()
 {
   mimosa::sqlite::Stmt stmt;
-  int err = stmt.prepare(Db::handle(),
-                         "select paste_id, length(content) from paste"
-                         " order by paste_id"
-                         " limit 100");
-  assert(err == SQLITE_OK);
+  stmt.prepare(Db::handle(),
+               "select paste_id, length(content) from paste"
+               " order by paste_id"
+               " limit 100");
 
-  while (stmt.step() == SQLITE_ROW)
-    oldest_pastes_.push_back(Paste(sqlite3_column_int64(stmt, 0),
-                                   sqlite3_column_int64(stmt, 1)));
+  int64_t paste_id, length;
+  while (stmt.fetch(&paste_id, &length))
+    oldest_pastes_.push_back(Paste(paste_id, length));
 }
 
 void
@@ -69,15 +62,8 @@ Purge::cleanup()
   }
 
   mimosa::sqlite::Stmt stmt;
-  int err = stmt.prepare(Db::handle(),
-                         "delete from paste where paste_id <= ?");
-  assert(err == SQLITE_OK);
-
-  err = stmt.bind(1, paste.id_);
-  assert(err == SQLITE_OK);
-
-  err = stmt.step();
-  assert(err == SQLITE_OK);
+  stmt.prepare(Db::handle(), "delete from paste where paste_id <= ?")
+    .bind(paste.id_).exec();
 }
 
 void

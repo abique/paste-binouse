@@ -18,32 +18,22 @@ bool
 ViewHandler::handle(mimosa::http::RequestReader & request,
                     mimosa::http::ResponseWriter & response) const
 {
-  std::string content;
+  std::string  content;
+  int          encoding;
   const auto & query = request.query();
 
   auto it = query.find("id");
   if (it != query.end())
   {
     mimosa::sqlite::Stmt stmt;
-    int err = stmt.prepare(Db::handle(),
-                           "select content, encoding from paste where paste_id = ?");
-    if (err != SQLITE_OK)
-      return errorHandler(response, "sqlite error");
-
-    err = stmt.bind(1, it->second);
-    if (err != SQLITE_OK)
-      return errorHandler(response, "sqlite error");
-
-    err = stmt.step();
-    if (err != SQLITE_ROW)
+    stmt.prepare(Db::handle(),
+                 "select content, encoding from paste where paste_id = ?");
+    stmt.bind(1, it->second);
+    if (!stmt.fetch(&content, &encoding))
     {
       mimosa::log::error("not found");
       return errorHandler(response, "Paste not found, take an other binouse!");
     }
-
-    int encoding = sqlite3_column_int(stmt, 1);
-    content.assign((const char *)sqlite3_column_blob(stmt, 0),
-                   sqlite3_column_bytes(stmt, 0));
 
     if (encoding == kLzma)
     {

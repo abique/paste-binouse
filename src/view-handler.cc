@@ -28,7 +28,7 @@ ViewHandler::handle(mimosa::http::RequestReader & request,
     mimosa::sqlite::Stmt stmt;
     stmt.prepare(Db::handle(),
                  "select content, encoding from paste where paste_id = ?");
-    stmt.bind(1, it->second);
+    stmt.bind(it->second);
     if (!stmt.fetch(&content, &encoding))
     {
       mimosa::log::error("not found");

@@ -12,7 +12,7 @@ static uint16_t & MS_SLEEP =
 
 static uint16_t & MAX_CLIENTS =
   *mimosa::options::addOption<uint16_t>(
-    "", "max-clients", "the maximum number of client at the same time", 100);
+    "", "max-clients", "the maximum number of client at the same time", 8);
 
 static uint64_t & CAPACITY =
   *mimosa::options::addOption<uint64_t>(
@@ -33,6 +33,7 @@ Config::Config()
   : root_dir_(ROOT),
     tpl_dir_(ROOT + "/www/tpl/"),
     css_dir_(ROOT + "/www/css/"),
+    js_dir_(ROOT + "/www/js/"),
     data_dir_(ROOT + "/www/data/"),
     db_(ROOT + "/db.sqlite"),
     port_(PORT),

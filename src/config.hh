@@ -4,9 +4,9 @@
 # include <cstdint>
 # include <string>
 
-# include <mimosa/container/singleton.hh>
+# include <mimosa/singleton.hh>
 
-class Config : public mimosa::container::Singleton<Config>
+class Config : public mimosa::Singleton<Config>
 {
 public:
   Config();

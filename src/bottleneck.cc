@@ -1,4 +1,4 @@
-#include <mimosa/runtime/time.hh>
+#include <mimosa/time.hh>
 
 #include "bottleneck.hh"
 #include "config.hh"
@@ -38,6 +38,6 @@ Bottleneck::run()
     future->set(true);
     future = nullptr;
 
-    mimosa::runtime::sleep(mimosa::runtime::millisecond * Config::msSleep());
+    mimosa::sleep(mimosa::millisecond * Config::msSleep());
   }
 }

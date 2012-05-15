@@ -3,9 +3,9 @@
 
 # include <deque>
 
-# include <mimosa/sync/channel.hh>
-# include <mimosa/runtime/thread.hh>
-# include <mimosa/container/singleton.hh>
+# include <mimosa/channel.hh>
+# include <mimosa/thread.hh>
+# include <mimosa/singleton.hh>
 
 /**
  * init:
@@ -17,7 +17,7 @@
  * when total_size > Config::maxPasteSize(), purge old pastes
  * when oldest_pastes_ is empty, reload oldest pastes
  */
-class Purge : public mimosa::container::Singleton<Purge>
+class Purge : public mimosa::Singleton<Purge>
 {
 public:
   Purge();
@@ -39,12 +39,12 @@ private:
     int64_t size_;
   };
 
-  typedef mimosa::sync::Channel<uint32_t> channel_type;
+  typedef mimosa::Channel<uint32_t> channel_type;
 
-  mimosa::runtime::Thread thread_;
-  channel_type::Ptr       channel_;
-  uint64_t                total_size_;
-  std::deque<Paste>       oldest_pastes_;
+  mimosa::Thread    thread_;
+  channel_type::Ptr channel_;
+  uint64_t          total_size_;
+  std::deque<Paste> oldest_pastes_;
 };
 
 #endif /* !PURGE_HH */

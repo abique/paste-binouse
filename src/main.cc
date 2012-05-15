@@ -6,7 +6,6 @@
 #include <mimosa/http/dispatch-handler.hh>
 #include <mimosa/http/fs-handler.hh>
 #include <mimosa/http/log-handler.hh>
-#include <mimosa/runtime/thread-pool.hh>
 
 #include "bottleneck.hh"
 #include "config.hh"
@@ -51,15 +50,9 @@ int main(int argc, char ** argv)
     return 1;
   }
 
-  mimosa::runtime::ThreadPool thread_pool([server] {
-      while (true)
-        server->serveOne();
-    });
+  while (true)
+    server->serveOne();
 
-  for (int i = 0; i < Config::maxClients(); ++i)
-    thread_pool.startThread();
-
-  thread_pool.join();
   Purge::release();
   Bottleneck::release();
   Db::release();

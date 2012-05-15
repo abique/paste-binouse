@@ -2,9 +2,9 @@
 # define DB_HH
 
 # include <sqlite3.h>
-# include <mimosa/container/singleton.hh>
+# include <mimosa/singleton.hh>
 
-class Db : public mimosa::container::Singleton<Db>
+class Db : public mimosa::Singleton<Db>
 {
 public:
   Db();

@@ -1,12 +1,12 @@
 #ifndef BOTTLENECK_HH
 # define BOTTLENECK_HH
 
-# include <mimosa/runtime/thread.hh>
-# include <mimosa/sync/channel.hh>
-# include <mimosa/sync/future.hh>
-# include <mimosa/container/singleton.hh>
+# include <mimosa/thread.hh>
+# include <mimosa/channel.hh>
+# include <mimosa/future.hh>
+# include <mimosa/singleton.hh>
 
-class Bottleneck : public mimosa::container::Singleton<Bottleneck>
+class Bottleneck : public mimosa::Singleton<Bottleneck>
 {
 public:
   Bottleneck();
@@ -17,10 +17,10 @@ public:
 private:
   void run();
 
-  typedef mimosa::sync::Future<bool> future_type;
-  typedef mimosa::sync::Channel<typename future_type::Ptr> channel_type;
+  typedef mimosa::Future<bool> future_type;
+  typedef mimosa::Channel<typename future_type::Ptr> channel_type;
 
-  mimosa::runtime::Thread thread_;
+  mimosa::Thread thread_;
   typename channel_type::Ptr channel_;
 };
 

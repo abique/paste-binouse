@@ -3,5 +3,18 @@
 ROOT="$1"
 
 cd "$ROOT"
-sqlite3 db.sqlite </usr/share/paste-binouse/sql/model.sql
+
+# Do we have an old database to migrate?
+if [[ -r db.sqlite ]]; then
+    # get current version
+    schema_version=$(sqlite3 -noheader db.sqlite <<<"pragma schema_version;")
+
+    if [[ "$schema_version" -eq 1 ]] ; then
+        sqlite3 db.sqlite </usr/share/paste-binouse/sql/migr-1.sql
+    fi
+else
+    # initialize database
+    sqlite3 db.sqlite </usr/share/paste-binouse/sql/model.sql
+fi
+
 ln -s /usr/share/paste-binouse/www

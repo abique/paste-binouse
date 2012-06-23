@@ -1,14 +1,14 @@
 <form method="post" enctype="application/x-www-form-urlencoded">
   <textarea name="content" id="code"></textarea></br>
-  <select name="type" id="mime-select" onChange="onMimeChanged()">
+  <select name="content-type" id="mime-select" onChange="onMimeChanged()">
   </select>
-  <input type="reset" value="Reset"/>
-  <input type="submit" value="Post"/>
+  <input type="submit" value="Paste"/>
 </form>
 
 <script language="javascript">
   var myCodeMirror = CodeMirror.fromTextArea(
    document.getElementById('code'), {
+    mode: 'text/plain',
     lineNumbers: true,
     tabSize: 8
    });

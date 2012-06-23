@@ -6,12 +6,19 @@
 <script language="javascript">
   var myCodeMirror = CodeMirror.fromTextArea(
    document.getElementById('code'), {
+    mode: '{{content-type}}',
     readOnly: true,
     lineNumbers: true,
     tabSize: 8,
    });
 </script>
 
-<select name="type" id="mime-select" onChange="onMimeChanged()">
+<select name="content-type" id="mime-select" onChange="onMimeChanged()">
 </select>
 <script src="js/mime-list.js"></script>
+
+<script language="javascript">
+if ('{{content-type}}' != '') {
+    document.getElementById('mime-select').value = '{{content-type}}';
+}
+</script>

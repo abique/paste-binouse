@@ -11,7 +11,7 @@ add_executable(paste-binoused
   page-header.cc
 
   # handlers
-  post-handler.cc
+  paste-handler.cc
   view-handler.cc
   error-handler.cc
 )

@@ -13,7 +13,7 @@
 #include "purge.hh"
 
 // handlers
-#include "post-handler.hh"
+#include "paste-handler.hh"
 #include "view-handler.hh"
 
 int main(int argc, char ** argv)
@@ -25,7 +25,7 @@ int main(int argc, char ** argv)
   Purge::instance();
 
   auto dispatch = new mimosa::http::DispatchHandler;
-  dispatch->registerHandler("/", new PostHandler);
+  dispatch->registerHandler("/", new PasteHandler);
   dispatch->registerHandler("/view", new ViewHandler);
   dispatch->registerHandler(
     "/data/*", new mimosa::http::FsHandler(

@@ -15,7 +15,7 @@
 #include "load-tpl.hh"
 #include "page-footer.hh"
 #include "page-header.hh"
-#include "post-handler.hh"
+#include "paste-handler.hh"
 #include "purge.hh"
 
 static void
@@ -39,16 +39,28 @@ encode(const std::string & input,
 }
 
 bool
-PostHandler::handle(mimosa::http::RequestReader & request,
-                    mimosa::http::ResponseWriter & response) const
+PasteHandler::handle(mimosa::http::RequestReader & request,
+                     mimosa::http::ResponseWriter & response) const
 {
   const auto & form = request.form();
 
-  auto it = form.find("content");
+  std::string content_type;
+  auto it = form.find("content-type");
+  if (it != form.end()) {
+#if 0 // XXX gcc 4.7 do not support regexs!!!
+    // check that we got a valid content type
+    static const std::regex re("[/a-z]*", std::regex_constants::basic);
+
+    if (std::regex_match(it->second, re))
+#endif
+      content_type = it->second;
+  }
+
+  it = form.find("content");
   if (it != form.end())
   {
     if (it->second.size() > Config::maxPasteSize())
-      return errorHandler(response, "post size exceed limit");
+      return errorHandler(response, "paste size exceed limit");
 
     Encoding encoding;
     std::string content;
@@ -57,12 +69,12 @@ PostHandler::handle(mimosa::http::RequestReader & request,
 
     mimosa::sqlite::Stmt stmt;
     stmt.prepare(Db::handle(),
-                 "insert or fail into paste (content, ip, encoding)"
-                 " values (?, ?, ?)")
+                 "insert or fail into paste (content, ip, encoding, content_type)"
+                 " values (?, ?, ?, ?)")
       .bind((void*)content.data(), (int)content.size(),
             mimosa::net::print(request.channel().remoteAddr(),
                                request.channel().remoteAddrLen()),
-            encoding)
+            encoding, content_type)
       .exec();
 
     int64_t row_id = sqlite3_last_insert_rowid(Db::handle());
@@ -76,7 +88,7 @@ PostHandler::handle(mimosa::http::RequestReader & request,
 
   mimosa::tpl::Dict dict;
 
-  auto tpl_body = loadTpl("post.html");
+  auto tpl_body = loadTpl("paste.html");
   if (!tpl_body)
     return false;
   dict.append("body", tpl_body);

@@ -19,6 +19,7 @@ ViewHandler::handle(mimosa::http::RequestReader & request,
                     mimosa::http::ResponseWriter & response) const
 {
   std::string  content;
+  std::string  content_type;
   int          encoding;
   const auto & query = request.query();
 
@@ -27,9 +28,10 @@ ViewHandler::handle(mimosa::http::RequestReader & request,
   {
     mimosa::sqlite::Stmt stmt;
     stmt.prepare(Db::handle(),
-                 "select content, encoding from paste where paste_id = ?");
+                 "select content, encoding, content_type"
+                 " from paste where paste_id = ?");
     stmt.bind(it->second);
-    if (!stmt.fetch(&content, &encoding))
+    if (!stmt.fetch(&content, &encoding, &content_type))
     {
       mimosa::log::error("not found");
       return errorHandler(response, "Paste not found, take an other binouse!");
@@ -56,6 +58,7 @@ ViewHandler::handle(mimosa::http::RequestReader & request,
     return false;
   dict.append("body", tpl_body);
   dict.append("content", content);
+  dict.append("content-type", content_type);
 
   setPageHeader(dict);
   setPageFooter(dict);

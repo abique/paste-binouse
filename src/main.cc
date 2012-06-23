@@ -36,6 +36,9 @@ int main(int argc, char ** argv)
   dispatch->registerHandler(
     "/js/*", new mimosa::http::FsHandler(
       Config::instance().jsDir(), 1, true));
+  dispatch->registerHandler(
+    "/cm/*", new mimosa::http::FsHandler(
+      Config::instance().cmDir(), 1, true));
 
   auto log_handler = new mimosa::http::LogHandler;
   log_handler->setHandler(dispatch);

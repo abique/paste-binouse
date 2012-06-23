@@ -17,6 +17,8 @@ public:
   static const std::string & tplDir() { return instance().tpl_dir_; }
   static const std::string & cssDir() { return instance().css_dir_; }
   static const std::string & jsDir() { return instance().js_dir_; }
+  // code mirror
+  static const std::string & cmDir() { return instance().cm_dir_; }
 
   static uint64_t maxPasteSize() { return instance().max_paste_size_; }
   static uint64_t capacity() { return instance().capacity_; }
@@ -29,6 +31,7 @@ private:
   std::string tpl_dir_;
   std::string css_dir_;
   std::string js_dir_;
+  std::string cm_dir_;
   std::string data_dir_;
   std::string db_;
 

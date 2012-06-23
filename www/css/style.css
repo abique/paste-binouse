@@ -27,7 +27,15 @@
     text-align: center;
 }
 
-.post-area {
-    width: 800px;
-    height: 600px;
+.CodeMirror {
+    border: 1px solid #ddd;
+}
+
+.CodeMirror-scroll {
+    height: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.CodeMirror-matchingbracket {
 }

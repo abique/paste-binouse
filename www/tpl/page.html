@@ -1,12 +1,67 @@
 <html>
   <head>
+    <!-- CodeMirror2 -->
+    <link rel="stylesheet" href="cm/lib/codemirror.css">
+    <link rel="stylesheet" href="cm/lib/util/dialog.css">
+    <script src="cm/lib/codemirror.js"></script>
+    <script src="cm/lib/util/searchcursor.js"></script>
+    <script src="cm/lib/util/search.js"></script>
+    <script src="cm/lib/util/dialog.js"></script>
+
+    <!-- CodeMirror modes -->
+    <script src="cm/mode/clike/clike.js"></script>
+    <script src="cm/mode/clojure/clojure.js"></script>
+    <script src="cm/mode/coffeescript/coffeescript.js"></script>
+    <script src="cm/mode/css/css.js"></script>
+    <script src="cm/mode/diff/diff.js"></script>
+    <script src="cm/mode/ecl/ecl.js"></script>
+    <script src="cm/mode/erlang/erlang.js"></script>
+    <script src="cm/mode/gfm/gfm.js"></script>
+    <script src="cm/mode/go/go.js"></script>
+    <script src="cm/mode/groovy/groovy.js"></script>
+    <script src="cm/mode/haskell/haskell.js"></script>
+    <script src="cm/mode/htmlembedded/htmlembedded.js"></script>
+    <script src="cm/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="cm/mode/javascript/javascript.js"></script>
+    <script src="cm/mode/jinja2/jinja2.js"></script>
+    <script src="cm/mode/less/less.js"></script>
+    <script src="cm/mode/lua/lua.js"></script>
+    <script src="cm/mode/markdown/markdown.js"></script>
+    <script src="cm/mode/mysql/mysql.js"></script>
+    <script src="cm/mode/ntriples/ntriples.js"></script>
+    <script src="cm/mode/pascal/pascal.js"></script>
+    <script src="cm/mode/perl/perl.js"></script>
+    <script src="cm/mode/php/php.js"></script>
+    <script src="cm/mode/pig/pig.js"></script>
+    <script src="cm/mode/plsql/plsql.js"></script>
+    <script src="cm/mode/properties/properties.js"></script>
+    <script src="cm/mode/python/python.js"></script>
+    <script src="cm/mode/r/r.js"></script>
+    <script src="cm/mode/rst/rst.js"></script>
+    <script src="cm/mode/ruby/ruby.js"></script>
+    <script src="cm/mode/rust/rust.js"></script>
+    <script src="cm/mode/scheme/scheme.js"></script>
+    <script src="cm/mode/shell/shell.js"></script>
+    <script src="cm/mode/smalltalk/smalltalk.js"></script>
+    <script src="cm/mode/smarty/smarty.js"></script>
+    <script src="cm/mode/sparql/sparql.js"></script>
+    <script src="cm/mode/stex/stex.js"></script>
+    <script src="cm/mode/tiddlywiki/tiddlywiki.js"></script>
+    <script src="cm/mode/tiki/tiki.js"></script>
+    <script src="cm/mode/vbscript/vbscript.js"></script>
+    <script src="cm/mode/velocity/velocity.js"></script>
+    <script src="cm/mode/verilog/verilog.js"></script>
+    <script src="cm/mode/xml/xml.js"></script>
+    <script src="cm/mode/xquery/xquery.js"></script>
+    <script src="cm/mode/yaml/yaml.js"></script>
+
+
+    <!-- paste binouse -->
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
-    <link href="/css/prettify.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="/js/prettify.js"></script>
   </head>
 
   <body>
-    <div class="page-div">
+    <div class="container">
       {{header}}
       {{body}}
       {{footer}}

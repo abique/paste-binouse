@@ -1,7 +1,17 @@
-<center>
 <form method="post" enctype="application/x-www-form-urlencoded">
-  <textarea name="content" class="post-area"></textarea></br>
+  <textarea name="content" id="code"></textarea></br>
+  <select name="type" id="mime-select" onChange="onMimeChanged()">
+  </select>
   <input type="reset" value="Reset"/>
   <input type="submit" value="Post"/>
 </form>
-</center>
+
+<script language="javascript">
+  var myCodeMirror = CodeMirror.fromTextArea(
+   document.getElementById('code'), {
+    lineNumbers: true,
+    tabSize: 8
+   });
+</script>
+
+<script src="js/mime-list.js"></script>

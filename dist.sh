@@ -11,7 +11,6 @@ mkdir $DISTDIR
 cp -R \
     AUTHORS \
     CMakeLists.txt \
-    ChangeLog \
     dist.sh \
     Doxyfile \
     LICENSE \
@@ -21,6 +20,7 @@ cp -R \
     src \
     VERSION \
     www \
+    mimosa \
     $DISTDIR
 
 tar -cvvv $DISTDIR | xz -ze9c >$DISTDIR.tar.xz

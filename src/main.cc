@@ -1,6 +1,7 @@
 #include <cerrno>
 
 #include <mimosa/init.hh>
+#include <mimosa/priviledge-drop.hh>
 #include <mimosa/log/log.hh>
 #include <mimosa/http/server.hh>
 #include <mimosa/http/dispatch-handler.hh>
@@ -20,6 +21,9 @@ int main(int argc, char ** argv)
 {
   sqlite3_initialize();
   mimosa::init(argc, argv);
+
+  mimosa::priviledgeDrop();
+
   Db::instance();
   Bottleneck::instance();
   Purge::instance();

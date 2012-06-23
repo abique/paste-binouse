@@ -17,4 +17,6 @@ else
     sqlite3 db.sqlite </usr/share/paste-binouse/sql/model.sql
 fi
 
-ln -s /usr/share/paste-binouse/www
+if ! [[ -e www ]] ; then
+    ln -sf /usr/share/paste-binouse/www
+fi

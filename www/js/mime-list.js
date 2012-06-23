@@ -22,7 +22,7 @@ function getCookie(name)
 
 function fillMimeSelect() {
     var mime_select = document.getElementById('mime-select');
-    var mimes = CodeMirror.listMIMEs()
+    var mimes = CodeMirror.listMIMEs().sort(function (a, b) { return b.mime < a.mime; })
     for (var i in mimes) {
         var opt = document.createElement("option");
         opt.value = mimes[i].mime;
@@ -45,10 +45,11 @@ function selectTheme() {
 }
 
 var theme = getCookie("theme");
-if (theme != '') {
+if (theme != null && theme != '') {
     myCodeMirror.setOption("theme", theme);
-    if (document.getElementById('theme-select')) {
+    if (document.getElementById('theme-select'))
         document.getElementById('theme-select').value = theme;
-        document.getElementById('theme-select').onchange = selectTheme;
-    }
 }
+
+if (document.getElementById('theme-select'))
+    document.getElementById('theme-select').onchange = selectTheme;

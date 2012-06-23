@@ -1,0 +1,3 @@
+[submodule "mimosa"]
+	path = mimosa
+	url = git://github.com/abique/mimosa

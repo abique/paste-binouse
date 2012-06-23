@@ -10,12 +10,10 @@ add_definitions(
   -std=c++0x
   -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -DGOOGLE_PROTOBUF_NO_RTTI
   -Wall -Wextra -Werror=return-type
-  -fsplit-stack
   ${GNUTLS_DEFINITIONS})
 
-set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -std=c99")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
-
+add_subdirectory(mimosa EXCLUDE_FROM_ALL)
+include_directories(mimosa)
 add_subdirectory(src)
 
 install(FILES scripts/paste-binouse-init

@@ -1,4 +1,4 @@
-pragma schema_version = 2;
+begin transaction;
 
 create table if not exists paste
 (
@@ -17,3 +17,7 @@ create table if not exists paste
   -- used for syntaxic coloration
   content_type text null default null
 );
+
+pragma schema_version = 2;
+
+commit transaction;

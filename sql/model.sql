@@ -18,6 +18,6 @@ create table if not exists paste
   content_type text null default null
 );
 
-pragma schema_version = 2;
+pragma user_version = 2;
 
 commit transaction;

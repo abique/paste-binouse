@@ -7,9 +7,9 @@ cd "$ROOT"
 # Do we have an old database to migrate?
 if [[ -r db.sqlite ]]; then
     # get current version
-    schema_version=$(sqlite3 -noheader db.sqlite <<<"pragma schema_version;")
+    user_version=$(sqlite3 -noheader db.sqlite <<<"pragma user_version;")
 
-    if [[ "$schema_version" -eq 1 ]] ; then
+    if [[ "$user_version" -eq 1 ]] ; then
         sqlite3 db.sqlite </usr/share/paste-binouse/sql/migr-1.sql
     fi
 else

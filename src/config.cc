@@ -34,7 +34,7 @@ Config::Config()
     tpl_dir_(ROOT + "/www/tpl/"),
     css_dir_(ROOT + "/www/css/"),
     js_dir_(ROOT + "/www/js/"),
-    cm_dir_(ROOT + "/www/CodeMirror2/"),
+    cm_dir_(ROOT + "/www/CodeMirror/"),
     data_dir_(ROOT + "/www/data/"),
     db_(ROOT + "/db.sqlite"),
     port_(PORT),

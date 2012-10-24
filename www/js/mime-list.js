@@ -8,21 +8,18 @@ function setCookie(name, value)
 function getCookie(name)
 {
     var i, x, y, ARRcookies = document.cookie.split(";");
-    for (i=0;i<ARRcookies.length;i++)
-    {
-        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
-        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
-        x=x.replace(/^\s+|\s+$/g,"");
-        if (x==name)
-        {
+    for (i = 0; i < ARRcookies.length; i++) {
+        x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+        y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+        x = x.replace(/^\s+|\s+$/g, "");
+        if (x == name)
             return unescape(y);
-        }
     }
 }
 
 function fillMimeSelect() {
     var mime_select = document.getElementById('mime-select');
-    var mimes = CodeMirror.listMIMEs().sort(function (a, b) { return b.mime < a.mime; })
+    var mimes = CodeMirror.listMIMEs()
     for (var i in mimes) {
         var opt = document.createElement("option");
         opt.value = mimes[i].mime;

@@ -29,11 +29,11 @@
 
 .CodeMirror {
     border: 1px solid #f7f7f7;
+    height: auto;
+    min-height: 400;
 }
 
 .CodeMirror-scroll {
-    height: auto;
-    min-height: 400;
     overflow-y: hidden;
     overflow-x: auto;
 }

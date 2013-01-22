@@ -19,11 +19,11 @@ function getCookie(name)
 
 function fillMimeSelect() {
     var mime_select = document.getElementById('mime-select');
-    var mimes = CodeMirror.listMIMEs()
+    var mimes = CodeMirror.mimeModes;
     for (var i in mimes) {
         var opt = document.createElement("option");
-        opt.value = mimes[i].mime;
-        opt.text = mimes[i].mime;
+        opt.value = i;
+        opt.text = i;
         mime_select.appendChild(opt);
     }
 }

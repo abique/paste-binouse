@@ -10,68 +10,110 @@
     <!-- <script src="cm/lib/util/dialog.js"></script> -->
 
     <!-- CodeMirror modes -->
+    <!-- for i in */*.js; do echo '    <script src="cm/mode/'$i'"></script>'; done | grep -v test -->
+    <script src="cm/mode/apl/apl.js"></script>
+    <script src="cm/mode/asterisk/asterisk.js"></script>
     <script src="cm/mode/clike/clike.js"></script>
     <script src="cm/mode/clojure/clojure.js"></script>
+    <script src="cm/mode/cobol/cobol.js"></script>
     <script src="cm/mode/coffeescript/coffeescript.js"></script>
+    <script src="cm/mode/commonlisp/commonlisp.js"></script>
     <script src="cm/mode/css/css.js"></script>
+    <script src="cm/mode/d/d.js"></script>
     <script src="cm/mode/diff/diff.js"></script>
+    <script src="cm/mode/dtd/dtd.js"></script>
     <script src="cm/mode/ecl/ecl.js"></script>
+    <script src="cm/mode/eiffel/eiffel.js"></script>
     <script src="cm/mode/erlang/erlang.js"></script>
+    <script src="cm/mode/fortran/fortran.js"></script>
+    <script src="cm/mode/gas/gas.js"></script>
     <script src="cm/mode/gfm/gfm.js"></script>
+    <script src="cm/mode/gherkin/gherkin.js"></script>
     <script src="cm/mode/go/go.js"></script>
     <script src="cm/mode/groovy/groovy.js"></script>
+    <script src="cm/mode/haml/haml.js"></script>
     <script src="cm/mode/haskell/haskell.js"></script>
+    <script src="cm/mode/haxe/haxe.js"></script>
     <script src="cm/mode/htmlembedded/htmlembedded.js"></script>
     <script src="cm/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="cm/mode/http/http.js"></script>
+    <script src="cm/mode/jade/jade.js"></script>
     <script src="cm/mode/javascript/javascript.js"></script>
     <script src="cm/mode/jinja2/jinja2.js"></script>
+    <script src="cm/mode/julia/julia.js"></script>
     <script src="cm/mode/less/less.js"></script>
+    <script src="cm/mode/livescript/livescript.js"></script>
     <script src="cm/mode/lua/lua.js"></script>
     <script src="cm/mode/markdown/markdown.js"></script>
-    <script src="cm/mode/mysql/mysql.js"></script>
+    <script src="cm/mode/mirc/mirc.js"></script>
+    <script src="cm/mode/nginx/nginx.js"></script>
     <script src="cm/mode/ntriples/ntriples.js"></script>
+    <script src="cm/mode/ocaml/ocaml.js"></script>
+    <script src="cm/mode/octave/octave.js"></script>
     <script src="cm/mode/pascal/pascal.js"></script>
+    <script src="cm/mode/pegjs/pegjs.js"></script>
     <script src="cm/mode/perl/perl.js"></script>
     <script src="cm/mode/php/php.js"></script>
     <script src="cm/mode/pig/pig.js"></script>
-    <script src="cm/mode/plsql/plsql.js"></script>
     <script src="cm/mode/properties/properties.js"></script>
     <script src="cm/mode/python/python.js"></script>
+    <script src="cm/mode/q/q.js"></script>
     <script src="cm/mode/r/r.js"></script>
     <script src="cm/mode/rst/rst.js"></script>
     <script src="cm/mode/ruby/ruby.js"></script>
     <script src="cm/mode/rust/rust.js"></script>
+    <script src="cm/mode/sass/sass.js"></script>
     <script src="cm/mode/scheme/scheme.js"></script>
     <script src="cm/mode/shell/shell.js"></script>
+    <script src="cm/mode/sieve/sieve.js"></script>
     <script src="cm/mode/smalltalk/smalltalk.js"></script>
+    <script src="cm/mode/smartymixed/smartymixed.js"></script>
     <script src="cm/mode/smarty/smarty.js"></script>
     <script src="cm/mode/sparql/sparql.js"></script>
+    <script src="cm/mode/sql/sql.js"></script>
     <script src="cm/mode/stex/stex.js"></script>
+    <script src="cm/mode/tcl/tcl.js"></script>
     <script src="cm/mode/tiddlywiki/tiddlywiki.js"></script>
     <script src="cm/mode/tiki/tiki.js"></script>
+    <script src="cm/mode/toml/toml.js"></script>
+    <script src="cm/mode/turtle/turtle.js"></script>
     <script src="cm/mode/vbscript/vbscript.js"></script>
+    <script src="cm/mode/vb/vb.js"></script>
     <script src="cm/mode/velocity/velocity.js"></script>
     <script src="cm/mode/verilog/verilog.js"></script>
     <script src="cm/mode/xml/xml.js"></script>
     <script src="cm/mode/xquery/xquery.js"></script>
     <script src="cm/mode/yaml/yaml.js"></script>
+    <script src="cm/mode/z80/z80.js"></script>
 
+    <!-- for i in *.css; do echo '    <link rel="stylesheet" href="cm/theme/'$i'">'; done -->
+    <link rel="stylesheet" href="cm/theme/3024-day.css">
+    <link rel="stylesheet" href="cm/theme/3024-night.css">
     <link rel="stylesheet" href="cm/theme/ambiance.css">
     <link rel="stylesheet" href="cm/theme/ambiance-mobile.css">
+    <link rel="stylesheet" href="cm/theme/base16-dark.css">
+    <link rel="stylesheet" href="cm/theme/base16-light.css">
     <link rel="stylesheet" href="cm/theme/blackboard.css">
     <link rel="stylesheet" href="cm/theme/cobalt.css">
     <link rel="stylesheet" href="cm/theme/eclipse.css">
     <link rel="stylesheet" href="cm/theme/elegant.css">
     <link rel="stylesheet" href="cm/theme/erlang-dark.css">
     <link rel="stylesheet" href="cm/theme/lesser-dark.css">
+    <link rel="stylesheet" href="cm/theme/mbo.css">
+    <link rel="stylesheet" href="cm/theme/midnight.css">
     <link rel="stylesheet" href="cm/theme/monokai.css">
     <link rel="stylesheet" href="cm/theme/neat.css">
     <link rel="stylesheet" href="cm/theme/night.css">
+    <link rel="stylesheet" href="cm/theme/paraiso-dark.css">
+    <link rel="stylesheet" href="cm/theme/paraiso-light.css">
     <link rel="stylesheet" href="cm/theme/rubyblue.css">
     <link rel="stylesheet" href="cm/theme/solarized.css">
+    <link rel="stylesheet" href="cm/theme/the-matrix.css">
+    <link rel="stylesheet" href="cm/theme/tomorrow-night-eighties.css">
     <link rel="stylesheet" href="cm/theme/twilight.css">
     <link rel="stylesheet" href="cm/theme/vibrant-ink.css">
     <link rel="stylesheet" href="cm/theme/xq-dark.css">
+    <link rel="stylesheet" href="cm/theme/xq-light.css">
 
     <!-- paste binouse -->
     <link rel="stylesheet" type="text/css" href="/css/style.css" />

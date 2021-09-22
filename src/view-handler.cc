@@ -40,7 +40,7 @@ ViewHandler::handle(mimosa::http::RequestReader & request,
     if (encoding == kLzma)
     {
       mimosa::stream::StringStream::Ptr str = new mimosa::stream::StringStream();
-      mimosa::stream::LzmaDecoder::Ptr lzma = new mimosa::stream::LzmaDecoder(str);
+      mimosa::stream::LzmaDecoder::Ptr lzma = new mimosa::stream::LzmaDecoder(str.get());
       lzma->loopWrite(content.data(), content.size());
       lzma->flush();
       content = str->str();
@@ -63,8 +63,8 @@ ViewHandler::handle(mimosa::http::RequestReader & request,
   setPageHeader(dict);
   setPageFooter(dict);
 
-  response.status_ = mimosa::http::kStatusOk;
-  response.content_type_ = "text/html";
+  response.setStatus(mimosa::http::kStatusOk);
+  response.setContentType("text/html");
   response.sendHeader();
   tpl->execute(&response, dict);
   return true;

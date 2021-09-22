@@ -4,10 +4,8 @@
 #include "config.hh"
 
 Bottleneck::Bottleneck()
-  : thread_([this] { this->run(); }),
-    channel_(new channel_type)
 {
-  thread_.start();
+  thread_.start([this] { this->run(); });
 }
 
 Bottleneck::~Bottleneck()

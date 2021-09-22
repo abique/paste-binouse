@@ -22,8 +22,8 @@ bool errorHandler(mimosa::http::ResponseWriter & response,
 
   setPageHeader(dict);
   setPageFooter(dict);
-  response.status_ = mimosa::http::kStatusOk;
-  response.content_type_ = "text/html";
+  response.setStatus(mimosa::http::kStatusOk);
+  response.setContentType("text/html");
   response.sendHeader();
   tpl->execute(&response, dict);
   return true;

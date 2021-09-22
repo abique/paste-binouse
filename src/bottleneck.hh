@@ -21,7 +21,7 @@ private:
   typedef mimosa::Channel<typename future_type::Ptr> channel_type;
 
   mimosa::Thread thread_;
-  typename channel_type::Ptr channel_;
+  typename channel_type::Ptr channel_ = new channel_type;
 };
 
 #endif /* !BOTTLENECK_HH */

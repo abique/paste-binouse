@@ -42,8 +42,8 @@ private:
   typedef mimosa::Channel<uint32_t> channel_type;
 
   mimosa::Thread    thread_;
-  channel_type::Ptr channel_;
-  uint64_t          total_size_;
+  channel_type::Ptr channel_ = new channel_type;
+  uint64_t          total_size_ = 0;
   std::deque<Paste> oldest_pastes_;
 };
 

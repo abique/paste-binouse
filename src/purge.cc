@@ -5,14 +5,10 @@
 #include "purge.hh"
 
 Purge::Purge()
-  : thread_([this] { run(); }),
-    channel_(new channel_type),
-    total_size_(0),
-    oldest_pastes_()
 {
   computeTotalSize();
   loadOldestPastes();
-  thread_.start();
+  thread_.start([this] { run(); });
 }
 
 Purge::~Purge()

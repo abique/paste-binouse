@@ -4,10 +4,11 @@ project(paste-binouse C CXX)
 
 enable_testing()
 
+set(CMAKE_CXX_STANDARD 17)
+
 find_package(GnuTLS REQUIRED)
 
 add_definitions(
-  -std=c++0x
   -D_GNU_SOURCE -D_LARGEFILE64_SOURCE -DGOOGLE_PROTOBUF_NO_RTTI
   -Wall -Wextra -Werror=return-type
   ${GNUTLS_DEFINITIONS})

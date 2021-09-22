@@ -33,16 +33,16 @@ int main(int argc, char ** argv)
   dispatch->registerHandler("/view", new ViewHandler);
   dispatch->registerHandler(
     "/data/*", new mimosa::http::FsHandler(
-      Config::instance().dataDir(), 1, true));
+      Config::instance().dataDir(), 1));
   dispatch->registerHandler(
     "/css/*", new mimosa::http::FsHandler(
-      Config::instance().cssDir(), 1, true));
+      Config::instance().cssDir(), 1));
   dispatch->registerHandler(
     "/js/*", new mimosa::http::FsHandler(
-      Config::instance().jsDir(), 1, true));
+      Config::instance().jsDir(), 1));
   dispatch->registerHandler(
     "/cm/*", new mimosa::http::FsHandler(
-      Config::instance().cmDir(), 1, true));
+      Config::instance().cmDir(), 1));
 
   auto log_handler = new mimosa::http::LogHandler;
   log_handler->setHandler(dispatch);

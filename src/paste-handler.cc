@@ -6,6 +6,7 @@
 #include <mimosa/tpl/dict.hh>
 #include <mimosa/stream/lzma-encoder.hh>
 #include <mimosa/stream/string-stream.hh>
+#include <mimosa/uri/parse-query.hh>
 
 #include "bottleneck.hh"
 #include "config.hh"
@@ -32,7 +33,7 @@ encode(const std::string & input,
 
   *encoding = kLzma;
   mimosa::stream::StringStream::Ptr str = new mimosa::stream::StringStream;
-  mimosa::stream::LzmaEncoder::Ptr lzma = new mimosa::stream::LzmaEncoder(str);
+  mimosa::stream::LzmaEncoder::Ptr lzma = new mimosa::stream::LzmaEncoder(str.get());
   lzma->loopWrite(input.data(), input.size());
   lzma->flush();
   *output = str->str();
@@ -42,17 +43,21 @@ bool
 PasteHandler::handle(mimosa::http::RequestReader & request,
                      mimosa::http::ResponseWriter & response) const
 {
-  const auto & form = request.form();
+  auto contentLength = request.contentLength();
+  if (contentLength > Config::maxPasteSize())
+    return errorHandler(response, "paste size exceed limit");
+
+  mimosa::stream::Buffer buffer(contentLength);
+  int64_t rbytes = request.loopRead(buffer.data(), request.contentLength());
+  if (rbytes != contentLength)
+    return errorHandler(response, "i/o error");
+
+  mimosa::kvs form;
+  mimosa::uri::parseQuery(buffer.data(), contentLength, &form);
 
   std::string content_type;
   auto it = form.find("content-type");
   if (it != form.end()) {
-#if 0 // XXX gcc 4.7 do not support regexs!!!
-    // check that we got a valid content type
-    static const std::regex re("[/a-z]*", std::regex_constants::basic);
-
-    if (std::regex_match(it->second, re))
-#endif
       content_type = it->second;
   }
 
@@ -96,8 +101,8 @@ PasteHandler::handle(mimosa::http::RequestReader & request,
   setPageHeader(dict);
   setPageFooter(dict);
 
-  response.status_ = mimosa::http::kStatusOk;
-  response.content_type_ = "text/html";
+  response.setStatus(mimosa::http::kStatusOk);
+  response.setContentType("text/html");
   response.sendHeader();
   tpl->execute(&response, dict);
   return true;
